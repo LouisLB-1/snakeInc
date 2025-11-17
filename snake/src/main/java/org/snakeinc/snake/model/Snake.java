@@ -11,6 +11,8 @@ public class Snake {
     private final AppleEatenListener onAppleEatenListener;
     private final Grid grid;
 
+    public enum Direction { U, D, R, L}
+
     public Snake(AppleEatenListener listener, Grid grid) {
         this.body = new ArrayList<>();
         this.onAppleEatenListener = listener;
@@ -34,20 +36,20 @@ public class Snake {
         onAppleEatenListener.onAppleEaten(apple, cell);
     }
 
-    public void move(char direction) throws OutOfPlayException, SelfCollisionException {
+    public void move(Direction direction) throws OutOfPlayException, SelfCollisionException {
         int x = getHead().getX();
         int y = getHead().getY();
         switch (direction) {
-            case 'U':
+            case U:
                 y--;
                 break;
-            case 'D':
+            case D:
                 y++;
                 break;
-            case 'L':
+            case L:
                 x--;
                 break;
-            case 'R':
+            case R:
                 x++;
                 break;
         }

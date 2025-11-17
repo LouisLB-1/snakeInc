@@ -18,7 +18,7 @@ public class Game {
         snake = new Snake((apple, cell) -> basket.removeAppleInCell(apple,cell), grid);
     }
 
-    public void iterate(char direction) throws OutOfPlayException, SelfCollisionException {
+    public void iterate(Snake.Direction direction) throws OutOfPlayException, SelfCollisionException {
         snake.move(direction);
         basket.refillIfNeeded(1);
     }
