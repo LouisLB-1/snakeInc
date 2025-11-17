@@ -5,8 +5,6 @@ import org.junit.jupiter.api.Test;
 import org.snakeinc.snake.GameParams;
 import org.snakeinc.snake.exception.OutOfPlayException;
 import org.snakeinc.snake.exception.SelfCollisionException;
-import org.snakeinc.snake.model.Apple;
-import org.snakeinc.snake.model.AppleFactory;
 import org.snakeinc.snake.model.Game;
 
 public class SnakeTest {
