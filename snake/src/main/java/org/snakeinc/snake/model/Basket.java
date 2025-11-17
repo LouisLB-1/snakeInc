@@ -25,8 +25,10 @@ public class Basket {
                 cell = grid.getTile(random.nextInt(0, GameParams.TILES_X), random.nextInt(0, GameParams.TILES_Y));
             }
         }
-        Fruit Fruit = FruitFactory.createFruitInCell(cell);
-        Fruits.add(Fruit);
+        var random = new Random();
+        int type = random.nextInt(0,2);
+        Fruit fruit = FruitFactory.createFruitInCell(cell, type);
+        Fruits.add(fruit);
     }
 
     public void removeFruitInCell(Fruit Fruit, Cell cell) {
