@@ -3,9 +3,9 @@ package org.snakeinc.snake.model;
 import lombok.Getter;
 
 @Getter
-public class Apple {
+public class Fruit {
 
-    public Apple() {
+    public Fruit() {
     }
 
 }

@@ -16,7 +16,7 @@ La propriété est un attribut d'une classe
     public class Snake {
 
     private final ArrayList<Cell> body;
-    private final AppleEatenListener onAppleEatenListener;
+    private final FruitEatenListener onFruitEatenListener;
     private final Grid grid;
 
 Les getters et les setters sont des méthodes de classe qui permettent d'accéder aux attributs
@@ -28,9 +28,9 @@ Dans une classe, il faut absolument inclure un constructeur qui permet de créer
 des instances appartenant à cette classe. Il est souvent recommandé d'inclure aussi
 un compteur d'instance pour éviter la fuite de donnée.
 
-    public Snake(AppleEatenListener listener, Grid grid) {
+    public Snake(FruitEatenListener listener, Grid grid) {
         this.body = new ArrayList<>();
-        this.onAppleEatenListener = listener;
+        this.onFruitEatenListener = listener;
         this.grid = grid;
         Cell head = grid.getTile(GameParams.SNAKE_DEFAULT_X, GameParams.SNAKE_DEFAULT_Y);
         head.addSnake(this);
@@ -73,8 +73,8 @@ Les exceptions sont un type d'objet permettant de gérer les erreurs dans un pro
 
 Une interface fonctionnelle est une interface qui ne contien qu'une seule métode abstraite.
 
-    public interface AppleEatenListener {
-    void onAppleEaten(Apple apple, Cell cell);
+    public interface FruitEatenListener {
+    void onFruitEaten(Fruit Fruit, Cell cell);
     }
 
 Lambda permet de définir une méthode à la voléé, une méthode qui n'a souvent pas besoin d'être utilisé ailleurs.

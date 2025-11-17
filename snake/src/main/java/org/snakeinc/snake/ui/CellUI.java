@@ -5,7 +5,10 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import lombok.AllArgsConstructor;
+import org.snakeinc.snake.model.Anaconda;
+import org.snakeinc.snake.model.BoaConstrictor;
 import org.snakeinc.snake.model.Cell;
+import org.snakeinc.snake.model.Python;
 
 @AllArgsConstructor
 public class CellUI {
@@ -17,7 +20,17 @@ public class CellUI {
     public void drawRectangle(Graphics g) {
         g.fillRect(upperPixelX, upperPixelY, GamePanel.TILE_PIXEL_SIZE, GamePanel.TILE_PIXEL_SIZE);
         Graphics2D g2 = (Graphics2D) g;
-        g2.setColor(Color.GREEN.darker());
+        switch(cell.getSnake()){
+            case Anaconda anaconda:
+                g2.setColor(Color.GRAY.darker());;
+                break;
+            case Python python:
+                g2.setColor(Color.GREEN.darker());
+                break;
+            case BoaConstrictor boaconstrictor:
+                g2.setColor(Color.BLUE.darker());
+                break;
+        }
         g2.setStroke(new BasicStroke(2));
         g2.drawRect(upperPixelX, upperPixelY, GamePanel.TILE_PIXEL_SIZE, GamePanel.TILE_PIXEL_SIZE);
     }
@@ -28,15 +41,26 @@ public class CellUI {
 
     public void draw(Graphics g) {
 
-        if (cell.containsAnApple()) {
+        if (cell.containsAnFruit()) {
             g.setColor(Color.RED);
             drawOval(g);
         }
         if (cell.containsASnake()) {
-            g.setColor(Color.GREEN);
-            drawRectangle(g);
+            switch(cell.getSnake()){
+                case Anaconda anaconda:
+                    g.setColor(Color.GRAY);
+                    drawRectangle(g);
+                    break;
+                case Python python:
+                    g.setColor(Color.GREEN);
+                    drawRectangle(g);
+                    break;
+                case BoaConstrictor boaconstrictor:
+                    g.setColor(Color.BLUE);
+                    drawRectangle(g);
+                    break;
+            }
         }
-
     }
 
 }
