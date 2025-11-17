@@ -21,6 +21,9 @@ public class Basket {
         if (cell == null) {
             var random = new Random();
             cell = grid.getTile(random.nextInt(0, GameParams.TILES_X), random.nextInt(0, GameParams.TILES_Y));
+            while (cell.containsASnake()){
+                cell = grid.getTile(random.nextInt(0, GameParams.TILES_X), random.nextInt(0, GameParams.TILES_Y));
+            }
         }
         Apple apple = AppleFactory.createAppleInCell(cell);
         apples.add(apple);
