@@ -19,13 +19,19 @@ public abstract sealed class Snake permits Anaconda, Python, BoaConstrictor {
         this.onFruitEatenListener = listener;
         this.grid = grid;
         Cell head = grid.getTile(GameParams.SNAKE_DEFAULT_X, GameParams.SNAKE_DEFAULT_Y);
-        Cell mid = grid.getTile(GameParams.SNAKE_DEFAULT_X-1, GameParams.SNAKE_DEFAULT_Y);
-        Cell tail = grid.getTile(GameParams.SNAKE_DEFAULT_X-2, GameParams.SNAKE_DEFAULT_Y);
+        Cell mid1 = grid.getTile(GameParams.SNAKE_DEFAULT_X-1, GameParams.SNAKE_DEFAULT_Y);
+        Cell mid2 = grid.getTile(GameParams.SNAKE_DEFAULT_X-2, GameParams.SNAKE_DEFAULT_Y);
+        Cell mid3 = grid.getTile(GameParams.SNAKE_DEFAULT_X-3, GameParams.SNAKE_DEFAULT_Y);
+        Cell tail = grid.getTile(GameParams.SNAKE_DEFAULT_X-4, GameParams.SNAKE_DEFAULT_Y);
         head.addSnake(this);
-        mid.addSnake(this);
+        mid1.addSnake(this);
+        mid2.addSnake(this);
+        mid3.addSnake(this);
         tail.addSnake(this);
         body.add(head);
-        body.add(mid);
+        body.add(mid1);
+        body.add(mid2);
+        body.add(mid3);
         body.add(tail);
     }
 
@@ -37,7 +43,7 @@ public abstract sealed class Snake permits Anaconda, Python, BoaConstrictor {
         return body.getFirst();
     }
 
-    public void eat(Fruit Fruit, Cell cell) {}
+    public void eat(Fruit Fruit, Cell cell) throws SnakeMalnutrition {}
 
 
     public void move(Direction direction) throws OutOfPlayException, SelfCollisionException, SnakeMalnutrition {
@@ -66,11 +72,8 @@ public abstract sealed class Snake permits Anaconda, Python, BoaConstrictor {
         }
 
         // Eat Fruit :
-        if (newHead.containsAnFruit()) {
+        if (newHead.containsAFruit()) {
             this.eat(newHead.getFruit(), newHead);
-            if (this.getSize()==0){
-                throw new SnakeMalnutrition();
-            }
             return;
         }
 

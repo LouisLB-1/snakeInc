@@ -21,12 +21,18 @@ public class Basket {
         if (cell == null) {
             var random = new Random();
             cell = grid.getTile(random.nextInt(0, GameParams.TILES_X), random.nextInt(0, GameParams.TILES_Y));
-            while (cell.containsASnake() | cell.containsAnFruit()){
+            while (cell.containsASnake() | cell.containsAFruit()){
                 cell = grid.getTile(random.nextInt(0, GameParams.TILES_X), random.nextInt(0, GameParams.TILES_Y));
             }
         }
         var random = new Random();
-        int type = random.nextInt(0,2);
+        int type;
+        if (random.nextInt(0,100) <=30 ){
+            type = 0;
+        }
+        else{
+            type = 1;
+        }
         Fruit fruit = FruitFactory.createFruitInCell(cell, type);
         Fruits.add(fruit);
     }

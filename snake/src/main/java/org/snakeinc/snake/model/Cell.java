@@ -43,7 +43,7 @@ public class Cell {
         return this.snake != null;
     }
     
-    public boolean containsAnFruit() {
+    public boolean containsAFruit() {
         return this.Fruit != null;
     }
 

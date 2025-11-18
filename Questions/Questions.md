@@ -80,3 +80,5 @@ Une interface fonctionnelle est une interface qui ne contien qu'une seule métod
 Lambda permet de définir une méthode à la voléé, une méthode qui n'a souvent pas besoin d'être utilisé ailleurs.
 
 Lombok est une librairie qui permet de faciliter la création de classes en automatisant la création des getters, setters et builders.
+
+https://github.com/sr-julien/snakeInc

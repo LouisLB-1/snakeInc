@@ -38,15 +38,28 @@ public class CellUI {
 
     public void draw(Graphics g) {
 
-        if (cell.containsAnFruit()) {
+        if (cell.containsAFruit()) {
             switch(cell.getFruit()){
                 case Apple apple:
-                    g.setColor(Color.RED);
-                    drawOval(g);
+                    if (cell.getFruit().getStatus() == Fruit.Status.N){
+                        g.setColor(Color.RED);
+                        drawOval(g);
+                    }
+                    else {
+                        g.setColor(Color.MAGENTA);
+                        drawOval(g);
+                    }
                     break;
                 case Lemon lemon:
-                    g.setColor(Color.YELLOW);
-                    drawOval(g);
+                    if (cell.getFruit().getStatus() == Fruit.Status.N){
+                        g.setColor(Color.YELLOW);
+                        drawOval(g);
+                    }
+                    else{
+                        g.setColor(Color.GREEN);
+                        drawOval(g);
+                    }
+                    break;
             }
 
         }
