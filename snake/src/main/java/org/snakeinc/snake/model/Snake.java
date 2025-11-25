@@ -1,20 +1,24 @@
 package org.snakeinc.snake.model;
 
 import java.util.ArrayList;
+
+import lombok.Getter;
 import org.snakeinc.snake.GameParams;
 import org.snakeinc.snake.exception.OutOfPlayException;
 import org.snakeinc.snake.exception.SelfCollisionException;
 import org.snakeinc.snake.exception.SnakeMalnutrition;
-
+@Getter
 public abstract sealed class Snake permits Anaconda, Python, BoaConstrictor {
 
     protected final ArrayList<Cell> body;
     protected final FruitEatenListener onFruitEatenListener;
     private final Grid grid;
+    protected Integer score;
 
     public enum Direction { U, D, R, L}
 
     public Snake(FruitEatenListener listener, Grid grid) {
+        this.score = 0;
         this.body = new ArrayList<>();
         this.onFruitEatenListener = listener;
         this.grid = grid;
@@ -44,7 +48,6 @@ public abstract sealed class Snake permits Anaconda, Python, BoaConstrictor {
     }
 
     public void eat(Fruit Fruit, Cell cell) throws SnakeMalnutrition {}
-
 
     public void move(Direction direction) throws OutOfPlayException, SelfCollisionException, SnakeMalnutrition {
         int x = getHead().getX();

@@ -15,6 +15,9 @@ public final class Python extends Snake{
                 body.addFirst(cell);
                 body.getLast().removeSnake();
                 body.removeLast();
+                if (apple.getStatus() == org.snakeinc.snake.model.Fruit.Status.N) {
+                    this.score+=2;
+                }
                 break;
             case Lemon lemon:
                 body.getLast().removeSnake();
@@ -29,6 +32,9 @@ public final class Python extends Snake{
                 }
                 body.getLast().removeSnake();
                 body.removeLast();
+                if (lemon.getStatus() == org.snakeinc.snake.model.Fruit.Status.N) {
+                    this.score+=1;
+                }
                 if (this.getSize()==0){
                     throw new SnakeMalnutrition();
                 }

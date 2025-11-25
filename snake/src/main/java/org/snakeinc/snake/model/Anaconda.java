@@ -1,6 +1,7 @@
 package org.snakeinc.snake.model;
 
 import org.snakeinc.snake.exception.SnakeMalnutrition;
+import org.snakeinc.snake.model.Fruit;
 
 public final class Anaconda extends Snake {
 
@@ -14,6 +15,9 @@ public final class Anaconda extends Snake {
                 body.addFirst(cell);
                 cell.addSnake(this);
                 onFruitEatenListener.onFruitEaten(Fruit,cell);
+                if (apple.getStatus() == org.snakeinc.snake.model.Fruit.Status.N) {
+                    this.score+=2;
+                }
                 break;
             case Lemon lemon:
                 body.getLast().removeSnake();
@@ -23,6 +27,9 @@ public final class Anaconda extends Snake {
                 }
                 body.getLast().removeSnake();
                 body.removeLast();
+                if (lemon.getStatus() == org.snakeinc.snake.model.Fruit.Status.N) {
+                    this.score+=1;
+                }
                 if (this.getSize()==0){
                     throw new SnakeMalnutrition();
                 }
