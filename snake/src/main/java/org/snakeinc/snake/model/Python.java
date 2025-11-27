@@ -20,7 +20,8 @@ public final class Python extends Snake{
                 }
                 else {
                     incrementState();
-            }
+                }
+                this.detach(cell);
                 break;
             case Lemon lemon:
                 body.getLast().removeSnake();
@@ -45,6 +46,7 @@ public final class Python extends Snake{
                     throw new SnakeMalnutrition();
                 }
                 onFruitEatenListener.onFruitEaten(Fruit,cell);
+                this.detach(cell);
                 break;
         }
 

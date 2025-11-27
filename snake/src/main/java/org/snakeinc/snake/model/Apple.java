@@ -17,4 +17,5 @@ public final class Apple extends Fruit {
         }
     }
     public Status getStatus() {return(this.poisoned);}
+
 }

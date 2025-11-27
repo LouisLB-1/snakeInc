@@ -4,7 +4,7 @@ import lombok.Getter;
 
 import java.util.Random;
 
-public final class Lemon extends Fruit{
+public final class Lemon extends Fruit {
     private final Status lime;
     public Lemon() {
         var random = new Random();

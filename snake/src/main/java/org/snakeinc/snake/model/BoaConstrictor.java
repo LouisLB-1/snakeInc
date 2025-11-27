@@ -22,6 +22,7 @@ public final class BoaConstrictor extends Snake{
                 if (this.getSize()==0){
                     throw new SnakeMalnutrition();
                 }
+                this.detach(cell);
                 break;
             case Lemon lemon:
                 onFruitEatenListener.onFruitEaten(Fruit,cell);
@@ -29,12 +30,14 @@ public final class BoaConstrictor extends Snake{
                 body.addFirst(cell);
                 body.getLast().removeSnake();
                 body.removeLast();
+                this.detach(cell);
                 if (lemon.getStatus() == org.snakeinc.snake.model.Fruit.Status.N) {
                     this.score+=1;
                 }
                 else {
                     decrementState();
                 }
+                this.detach(cell);
                 break;
         }
     }

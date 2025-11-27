@@ -13,6 +13,8 @@ public class RandomStrategy implements FruitStrategy {
                 cell = basket.getGrid().getTile(random.nextInt(0, GameParams.TILES_X), random.nextInt(0, GameParams.TILES_Y));
             }
         }
+        snake.attach(cell);
+
         var random = new Random();
         int type;
         if (random.nextInt(0,100) <=30 ){

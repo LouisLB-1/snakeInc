@@ -20,6 +20,7 @@ public class EasyStrategy implements FruitStrategy {
             }
             cell = candidate;
         }
+        snake.attach(cell);
 
         var random = new Random();
         int type;

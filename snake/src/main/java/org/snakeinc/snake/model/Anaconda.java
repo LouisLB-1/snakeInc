@@ -21,10 +21,12 @@ public final class Anaconda extends Snake {
                 else {
                     incrementState();
                 }
+                this.detach(cell);
                 break;
             case Lemon lemon:
                 body.getLast().removeSnake();
                 body.removeLast();
+                this.detach(cell);
                 if (lemon.getStatus() == org.snakeinc.snake.model.Fruit.Status.N) {
                     this.score+=1;
                 }
@@ -40,6 +42,7 @@ public final class Anaconda extends Snake {
                     throw new SnakeMalnutrition();
                 }
                 onFruitEatenListener.onFruitEaten(Fruit,cell);
+                this.detach(cell);
                 break;
         }
     }

@@ -1,6 +1,7 @@
 package org.snakeinc.snake.model;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -16,6 +17,7 @@ public abstract sealed class Snake permits Anaconda, Python, BoaConstrictor {
     private final Grid grid;
     protected Integer score;
     protected SnakeState state;
+    protected final List<Cell> observers = new ArrayList<>();
     @Setter
     protected Direction direction;
 
@@ -57,6 +59,7 @@ public abstract sealed class Snake permits Anaconda, Python, BoaConstrictor {
 
     public void move(Direction direction) throws OutOfPlayException, SelfCollisionException, SnakeMalnutrition {
         state.smove(this, direction);
+        notifyObservers();
     }
 
     public void incrementState() {
@@ -95,4 +98,20 @@ public abstract sealed class Snake permits Anaconda, Python, BoaConstrictor {
             this.state = new HealthyState();
         }
     }
+
+    public void attach(Cell observer) {
+        observers.add(observer);
+    }
+
+    public void detach(Cell observer) {
+        observers.remove(observer);
+    }
+
+    private void notifyObservers() {
+        List<Cell> copy = new ArrayList<>(observers);
+        for (Cell obs : copy) {
+            obs.update(this);
+        }
+    }
+
 }
