@@ -4,37 +4,30 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import lombok.Data;
+import lombok.Getter;
 import org.snakeinc.snake.GameParams;
 
 @Data
 public class Basket {
-
-    private Grid grid;
-    private List<Fruit> Fruits;
+    @Getter
+    protected Grid grid;
+    protected List<Fruit> Fruits;
+    private FruitStrategy strategy;
 
     public Basket(Grid grid) {
         Fruits = new ArrayList<>();
         this.grid = grid;
+        Random var = new Random();
+        int strat = var.nextInt(3);
+        switch (strat){
+            case (0) -> this.strategy = new RandomStrategy();
+            case (1) -> this.strategy = new EasyStrategy();
+            case (2) -> this.strategy = new HardStrategy();
+        }
     }
 
-    public void addFruit(Cell cell) {
-        if (cell == null) {
-            var random = new Random();
-            cell = grid.getTile(random.nextInt(0, GameParams.TILES_X), random.nextInt(0, GameParams.TILES_Y));
-            while (cell.containsASnake() | cell.containsAFruit()){
-                cell = grid.getTile(random.nextInt(0, GameParams.TILES_X), random.nextInt(0, GameParams.TILES_Y));
-            }
-        }
-        var random = new Random();
-        int type;
-        if (random.nextInt(0,100) <=30 ){
-            type = 0;
-        }
-        else{
-            type = 1;
-        }
-        Fruit fruit = FruitFactory.createFruitInCell(cell, type);
-        Fruits.add(fruit);
+    public void addFruit(Snake snake, Cell cell) {
+        strategy.StratAddFruit(snake, this, cell);
     }
 
     public void removeFruitInCell(Fruit Fruit, Cell cell) {
@@ -46,16 +39,16 @@ public class Basket {
         return Fruits.isEmpty();
     }
 
-    private void refill(int nFruits) {
+    private void refill(Snake snake, int nFruits) {
         for (int i = 0; i < nFruits; i++) {
-            addFruit(null);
+            addFruit(snake, null);
         }
     }
 
-    public void refillIfNeeded(int nFruits) {
+    public void refillIfNeeded(Snake snake, int nFruits) {
         int missingFruit = nFruits - Fruits.size();
         if (missingFruit > 0) {
-            refill(missingFruit);
+            refill(snake, missingFruit);
         }
     }
 

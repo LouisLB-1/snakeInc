@@ -18,7 +18,6 @@ public class Game {
     public Game() {
         grid = new Grid();
         basket = new Basket(grid);
-        basket.refillIfNeeded(3);
         var random = new Random();
         int type = random.nextInt(0,3);
         switch (type) {
@@ -26,11 +25,12 @@ public class Game {
             case 1 -> snake = new Python((Fruit, cell) -> basket.removeFruitInCell(Fruit,cell), grid);
             default -> snake = new BoaConstrictor((Fruit, cell) -> basket.removeFruitInCell(Fruit,cell), grid);
         }
+        basket.refillIfNeeded(snake, 3);
     }
 
     public void iterate(Snake.Direction direction) throws OutOfPlayException, SelfCollisionException, SnakeMalnutrition {
         snake.move(direction);
-        basket.refillIfNeeded(3);
+        basket.refillIfNeeded(snake, 3);
     }
 
 

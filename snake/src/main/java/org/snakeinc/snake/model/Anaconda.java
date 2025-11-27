@@ -18,18 +18,24 @@ public final class Anaconda extends Snake {
                 if (apple.getStatus() == org.snakeinc.snake.model.Fruit.Status.N) {
                     this.score+=2;
                 }
+                else {
+                    incrementState();
+                }
                 break;
             case Lemon lemon:
-                body.getLast().removeSnake();
-                body.removeLast();
-                if (this.getSize()==0){
-                    throw new SnakeMalnutrition();
-                }
                 body.getLast().removeSnake();
                 body.removeLast();
                 if (lemon.getStatus() == org.snakeinc.snake.model.Fruit.Status.N) {
                     this.score+=1;
                 }
+                else {
+                    decrementState();
+                }
+                if (this.getSize()==0){
+                    throw new SnakeMalnutrition();
+                }
+                body.getLast().removeSnake();
+                body.removeLast();
                 if (this.getSize()==0){
                     throw new SnakeMalnutrition();
                 }
