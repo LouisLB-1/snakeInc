@@ -6,12 +6,12 @@ import lombok.ToString;
 import java.time.LocalDateTime;
 @Getter
 public class Player {
-    private static Integer idcount = 1;
-    private Integer id;
-    private String name;
-    private Integer age;
-    private String category;
-    private LocalDateTime createdAt;
+    private static Integer idcount = 0;
+    private final Integer id;
+    private final String name;
+    private final Integer age;
+    private final String category;
+    private final LocalDateTime createdAt;
 
     public Player(String name, Integer age) {
         this.name = name;
