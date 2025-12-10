@@ -1,6 +1,7 @@
 package org.snakeInc.api.controller;
-import lombok.ToString;
+import jakarta.validation.Valid;
 import org.snakeInc.api.entities.Player;
+import org.snakeInc.api.entities.PlayerParams;
 import org.snakeInc.api.service.PlayerService;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,10 +14,9 @@ public class PlayerController {
         this.playerService = playerService;
     }
 
-    private record PlayerParams(String name, Integer age){}
     @PostMapping
-    public Player postPlayer(@RequestBody PlayerParams params) {
-        Player player = new Player(params.name, params.age);
+    public Player postPlayer(@Valid @RequestBody PlayerParams params) {
+        Player player = new Player(params.getName(), params.getAge());
         playerService.addPlayer(player);
         return player;
     }
