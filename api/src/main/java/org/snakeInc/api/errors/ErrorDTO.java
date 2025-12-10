@@ -1,4 +1,4 @@
-package org.snakeInc.api.Errors;
+package org.snakeInc.api.errors;
 
 import lombok.Data;
 import org.springframework.context.support.DefaultMessageSourceResolvable;

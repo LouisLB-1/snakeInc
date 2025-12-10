@@ -1,17 +1,20 @@
 package org.snakeInc.api.entities;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 import lombok.Getter;
-import lombok.ToString;
 
 import java.time.LocalDateTime;
 @Getter
+@Entity
 public class Player {
     private static Integer idcount = 0;
-    private final Integer id;
-    private final String name;
-    private final Integer age;
-    private final String category;
-    private final LocalDateTime createdAt;
+    @Id
+    protected final Integer id;
+    protected final String name;
+    protected final Integer age;
+    protected final String category;
+    protected final LocalDateTime createdAt;
 
     public Player(String name, Integer age) {
         this.name = name;
@@ -22,6 +25,15 @@ public class Player {
         else {
             this.category = "Junior";
         }
+        this.createdAt = LocalDateTime.now();
+        idcount++;
+        this.id = idcount;
+    }
+
+    public Player() {
+        this.name = null;
+        this.age = null;
+        this.category = null;
         this.createdAt = LocalDateTime.now();
         idcount++;
         this.id = idcount;

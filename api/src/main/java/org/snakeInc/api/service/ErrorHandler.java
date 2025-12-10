@@ -1,6 +1,6 @@
 package org.snakeInc.api.service;
 
-import org.snakeInc.api.Errors.ErrorDTO;
+import org.snakeInc.api.errors.ErrorDTO;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;

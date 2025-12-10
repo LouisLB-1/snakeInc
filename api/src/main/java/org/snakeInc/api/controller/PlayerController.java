@@ -5,6 +5,8 @@ import org.snakeInc.api.entities.PlayerParams;
 import org.snakeInc.api.service.PlayerService;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 @RestController
 @RequestMapping("api/v1/players")
 public class PlayerController {
@@ -22,7 +24,12 @@ public class PlayerController {
     }
 
     @GetMapping("{id}")
-    public Player getPlayer(@PathVariable int id) {
+    public Optional<Player> getPlayer(@PathVariable int id) {
         return playerService.getPlayer(id);
+    }
+
+    @DeleteMapping("{id}")
+    public void delPlayer(@PathVariable int id) {
+        playerService.delPlayer(id);
     }
 }

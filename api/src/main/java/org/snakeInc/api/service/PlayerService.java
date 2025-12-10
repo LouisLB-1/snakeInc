@@ -2,21 +2,29 @@ package org.snakeInc.api.service;
 
 import lombok.Data;
 import org.snakeInc.api.entities.Player;
+import org.snakeInc.api.repository.PlayerRepo;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Optional;
 
 @Service
 @Data
 public class PlayerService {
-    private final Map<Integer, Player> players = new HashMap<>();
+    private final PlayerRepo repo;
 
-    public Player getPlayer(int id) {
-        return players.get(id);
+    public PlayerService(PlayerRepo repo) {
+        this.repo = repo;
+    }
+
+    public Optional<Player> getPlayer(int id) {
+        return repo.findById(id);
     }
 
     public void addPlayer(Player player) {
-        players.put(player.getId(), player);
+        repo.save(player);
+    }
+
+    public void delPlayer(int id) {
+        repo.deleteById(id);
     }
 }
