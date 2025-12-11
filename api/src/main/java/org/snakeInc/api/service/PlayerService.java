@@ -5,6 +5,7 @@ import org.snakeInc.api.entities.Player;
 import org.snakeInc.api.repository.PlayerRepo;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -26,5 +27,9 @@ public class PlayerService {
 
     public void delPlayer(int id) {
         repo.deleteById(id);
+    }
+
+    public List<Player> getAllPlayers() {
+        return (List<Player>) repo.findAll();
     }
 }
