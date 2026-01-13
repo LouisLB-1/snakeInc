@@ -16,4 +16,9 @@ public class ErrorDTO {
         this.timestamp = LocalDateTime.now();
         this.message = e.getBindingResult().getAllErrors().stream().map(DefaultMessageSourceResolvable::getDefaultMessage).toList();
     }
+
+    public ErrorDTO(String message) {
+        this.timestamp = LocalDateTime.now();
+        this.message = List.of(message);
+    }
 }
