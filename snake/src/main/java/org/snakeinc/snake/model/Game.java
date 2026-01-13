@@ -32,6 +32,4 @@ public class Game {
         snake.move(direction);
         basket.refillIfNeeded(snake, 3);
     }
-
-
 }

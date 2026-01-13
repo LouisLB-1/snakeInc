@@ -24,11 +24,13 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
     public static final int GAME_PIXEL_WIDTH = TILE_PIXEL_SIZE * GameParams.TILES_X;
     public static final int GAME_PIXEL_HEIGHT = TILE_PIXEL_SIZE * GameParams.TILES_Y;
 
+    private final String username;
     private Timer timer;
     private Game game;
     private boolean running = false;
 
-    public GamePanel() {
+    public GamePanel(String username) {
+        this.username = username;
         this.setPreferredSize(new Dimension(GAME_PIXEL_WIDTH, GAME_PIXEL_HEIGHT));
         this.setBackground(Color.BLACK);
         this.setFocusable(true);
