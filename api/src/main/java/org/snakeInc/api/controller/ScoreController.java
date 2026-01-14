@@ -50,4 +50,10 @@ public class ScoreController {
     public ScoreStatsDTO getStats(@RequestParam Integer playerId) {
         return scoreService.getStatsForPlayer(playerId);
     }
+
+    @GetMapping("/best")
+    public Score getBestScore(@RequestParam Integer playerId) {
+        return scoreService.getBestScore(playerId);
+    }
+
 }

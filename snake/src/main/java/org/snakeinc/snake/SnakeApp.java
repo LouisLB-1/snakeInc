@@ -12,11 +12,8 @@ public class SnakeApp {
             JFrame frame = new JFrame("Snake");
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             frame.setResizable(false);
-
-            // On met le LaunchPanel au démarrage
             LaunchPanel launchPanel = new LaunchPanel(frame);
             frame.add(launchPanel);
-
             frame.pack();
             frame.setLocationRelativeTo(null);
             frame.setVisible(true);

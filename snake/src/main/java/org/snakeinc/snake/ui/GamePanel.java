@@ -17,6 +17,7 @@ import org.snakeinc.snake.exception.SelfCollisionException;
 import org.snakeinc.snake.exception.SnakeMalnutrition;
 import org.snakeinc.snake.model.Game;
 import org.snakeinc.snake.model.Snake;
+import org.snakeinc.snake.api.ApiClient;
 
 public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
@@ -28,6 +29,9 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
     private Timer timer;
     private Game game;
     private boolean running = false;
+    private Integer bestScore = null;
+    private boolean statsLoaded = false;
+
 
     public GamePanel(String username) {
         this.username = username;
@@ -59,8 +63,38 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
         g.setColor(Color.RED);
         g.setFont(new Font("Arial", Font.BOLD, 20));
         FontMetrics metrics = getFontMetrics(g.getFont());
-        g.drawString("Game Over", (GAME_PIXEL_WIDTH - metrics.stringWidth("Game Over")) / 2, GAME_PIXEL_HEIGHT / 3);
-        g.drawString("Score : " + game.getSnake().getScore(), (GAME_PIXEL_WIDTH - metrics.stringWidth("Score :" + game.getSnake().getScore())) / 2, GAME_PIXEL_HEIGHT / 2);
+
+        int y = GAME_PIXEL_HEIGHT / 3;
+
+        g.drawString(
+                "Game Over",
+                (GAME_PIXEL_WIDTH - metrics.stringWidth("Game Over")) / 2,
+                y
+        );
+
+        y += 40;
+        String scoreText = "Your score : " + game.getSnake().getScore();
+        g.drawString(
+                scoreText,
+                (GAME_PIXEL_WIDTH - metrics.stringWidth(scoreText)) / 2,
+                y
+        );
+
+        y += 40;
+
+        if (!statsLoaded) {
+            g.drawString("Loading best score...",
+                    (GAME_PIXEL_WIDTH - metrics.stringWidth("Loading best score...")) / 2,
+                    y
+            );
+        } else if (bestScore != null) {
+            String bestText = "Your best : " + bestScore;
+            g.drawString(
+                    bestText,
+                    (GAME_PIXEL_WIDTH - metrics.stringWidth(bestText)) / 2,
+                    y
+            );
+        }
     }
 
     @Override
@@ -71,10 +105,28 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
             } catch (OutOfPlayException | SelfCollisionException | SnakeMalnutrition exception) {
                 timer.stop();
                 running = false;
+                fetchBestScoreAsync();
             }
         }
         repaint();
     }
+
+    private void fetchBestScoreAsync() {
+        new Thread(() -> {
+            try {
+                ApiClient.postScore( game.getSnake().getScore(), 2);
+
+                int bestScore = ApiClient.getBestScore(2);
+                statsLoaded = true;
+
+                repaint();
+            } catch (Exception e) {
+                bestScore = null;
+                statsLoaded = true;
+            }
+        }).start();
+    }
+
 
     @Override
     public void keyPressed(KeyEvent e) {

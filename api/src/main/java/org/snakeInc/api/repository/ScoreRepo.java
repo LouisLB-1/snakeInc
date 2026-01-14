@@ -7,6 +7,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface ScoreRepo extends CrudRepository<Score, Integer> {
@@ -16,4 +17,5 @@ public interface ScoreRepo extends CrudRepository<Score, Integer> {
 
     @Query("SELECT s.snake as snake, MIN(s.value) as min, MAX(s.value) as max, AVG(s.value) as average " + "FROM Score s WHERE s.playerId = :playerId GROUP BY s.snake")
     List<Object[]> findStatsByPlayer(@Param("playerId") Integer playerId);
+    Optional<Score> findTopByPlayerIdOrderByValueDesc(Integer playerId);
 }

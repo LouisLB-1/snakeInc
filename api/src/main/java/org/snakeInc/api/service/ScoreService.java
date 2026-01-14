@@ -49,4 +49,11 @@ public class ScoreService {
 
         return new ScoreStatsDTO(playerId, stats);
     }
+
+    public Score getBestScore(Integer playerId) {
+        return repo.findTopByPlayerIdOrderByValueDesc(playerId)
+                .orElse(null);
+    }
+
+
 }
