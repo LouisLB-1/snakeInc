@@ -105,11 +105,70 @@ public class ApiClient {
             end = json.indexOf("\"", start + 1);
             return json.substring(start + 1, end);
         } else {
-            // valeur numérique
             start = colon + 1;
             end = json.indexOf(",", start);
             if (end == -1) end = json.indexOf("}", start);
             return json.substring(start, end).trim();
         }
     }
+
+    public static Integer createPlayer(String username) {
+        HttpURLConnection conn = null;
+
+        try {
+            URL url = new URL(BASE_URL + "/players");
+            conn = (HttpURLConnection) url.openConnection();
+
+            conn.setRequestMethod("POST");
+            conn.setRequestProperty("Content-Type", "application/json");
+            conn.setDoOutput(true);
+
+            String body = """
+        {
+          "name": "%s",
+          "age": 18
+        }
+        """.formatted(username);
+
+            try (OutputStream os = conn.getOutputStream()) {
+                os.write(body.getBytes(StandardCharsets.UTF_8));
+            }
+
+            int status = conn.getResponseCode();
+            if (status != 200 && status != 201) {
+                throw new RuntimeException("HTTP error while creating player: " + status);
+            }
+
+            String response = readResponse(conn.getInputStream());
+            JSONObject obj = new JSONObject(response);
+            return obj.getInt("id");
+
+        } catch (Exception e) {
+            throw new RuntimeException("Unable to create player", e);
+        } finally {
+            if (conn != null) conn.disconnect();
+        }
+    }
+
+
+    public static Integer getPlayerIdByUsername(String username) {
+        try {
+            URL url = new URL(BASE_URL + "/players/username/?username=" + username);
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("GET");
+
+            if (conn.getResponseCode() != 200) {
+                return null;
+            }
+
+            String response = readResponse(conn.getInputStream());
+            JSONObject obj = new JSONObject(response);
+            return obj.getInt("id");
+
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+
 }

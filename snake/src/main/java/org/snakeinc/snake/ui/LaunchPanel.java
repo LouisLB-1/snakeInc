@@ -3,6 +3,7 @@ package org.snakeinc.snake.ui;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import org.snakeinc.snake.api.ApiClient;
 
 public class LaunchPanel extends JPanel {
 
@@ -48,7 +49,7 @@ public class LaunchPanel extends JPanel {
             return;
         }
 
-        GamePanel gamePanel = new GamePanel(username);
+        GamePanel gamePanel = new GamePanel(resolvePlayerId(username));
 
         frame.getContentPane().removeAll();
         frame.getContentPane().add(gamePanel);
@@ -56,4 +57,18 @@ public class LaunchPanel extends JPanel {
         frame.repaint();
         gamePanel.requestFocusInWindow();
     }
+
+    public int resolvePlayerId(String username) {
+        try {
+            return ApiClient.getPlayerIdByUsername(username);
+
+        } catch (Exception e) {
+            try {
+                return ApiClient.createPlayer(username);
+            } catch (Exception ex) {
+                throw new RuntimeException("Impossible de créer le player " + username, ex);
+            }
+        }
+    }
+
 }

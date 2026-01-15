@@ -16,9 +16,10 @@ public class PlayerService {
         this.repo = repo;
     }
 
-    public Optional<Player> getPlayer(int id) {
+    public Optional<Player> getPlayerById(int id) {
         return repo.findById(id);
     }
+    public Optional<Player> getPlayerByUsername(String username) { return repo.findByName(username); }
 
     public void addPlayer(Player player) {
         repo.save(player);

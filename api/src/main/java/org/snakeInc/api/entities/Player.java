@@ -23,11 +23,11 @@ public class Player {
     protected final String category;
     protected final LocalDateTime createdAt;
     @OneToMany(mappedBy = "playerId", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Score> scores = new ArrayList<>();
+    private final List<Score> scores = new ArrayList<>();
 
-    public Player(String name, Integer age) {
+    public Player(String name) {
         this.name = name;
-        this.age = age;
+        this.age = 21;
         if (age >= 18){
             this.category = "Senior";
         }
@@ -42,9 +42,5 @@ public class Player {
         this.age = null;
         this.category = null;
         this.createdAt = LocalDateTime.now();
-    }
-
-    public void addScore(Score score) {
-        scores.add(score);
     }
 }

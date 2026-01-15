@@ -18,14 +18,19 @@ public class PlayerController {
 
     @PostMapping
     public Player postPlayer(@Valid @RequestBody PlayerParams params) {
-        Player player = new Player(params.getName(), params.getAge());
+        Player player = new Player(params.getName());
         playerService.addPlayer(player);
         return player;
     }
 
-    @GetMapping("{id}")
-    public Optional<Player> getPlayer(@PathVariable int id) {
-        return playerService.getPlayer(id);
+    @GetMapping("/id/{id}")
+    public Optional<Player> getPlayerByUsername(@PathVariable int id) {
+        return playerService.getPlayerById(id);
+    }
+
+    @GetMapping("/username/{username}")
+    public Optional<Player> getPlayerById(@PathVariable String username) {
+        return playerService.getPlayerByUsername(username);
     }
 
     @DeleteMapping("{id}")

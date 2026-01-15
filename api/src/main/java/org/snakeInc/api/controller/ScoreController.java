@@ -28,7 +28,7 @@ public class ScoreController {
     @PostMapping
     public Score postScore(@Valid @RequestBody ScoreParams params) {
         Player player = playerService
-                .getPlayer(params.getPlayerId())
+                .getPlayerById(params.getPlayerId())
                 .orElseThrow(() -> new PlayerNotFoundException(params.getPlayerId()));
         Score score = new Score(params.getValue(), params.getSnake(), params.getPlayerId());
         scoreService.addScore(score);
