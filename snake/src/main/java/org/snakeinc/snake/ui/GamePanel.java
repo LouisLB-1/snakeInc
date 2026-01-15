@@ -15,8 +15,7 @@ import org.snakeinc.snake.GameParams;
 import org.snakeinc.snake.exception.OutOfPlayException;
 import org.snakeinc.snake.exception.SelfCollisionException;
 import org.snakeinc.snake.exception.SnakeMalnutrition;
-import org.snakeinc.snake.model.Game;
-import org.snakeinc.snake.model.Snake;
+import org.snakeinc.snake.model.*;
 import org.snakeinc.snake.api.ApiClient;
 
 public class GamePanel extends JPanel implements ActionListener, KeyListener {
@@ -88,7 +87,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
                     y
             );
         } else if (bestScore != null) {
-            String bestText = "Your best : " + bestScore;
+            String bestText = "Best Score : " + bestScore;
             g.drawString(
                     bestText,
                     (GAME_PIXEL_WIDTH - metrics.stringWidth(bestText)) / 2,
@@ -114,14 +113,20 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
     private void fetchBestScoreAsync() {
         new Thread(() -> {
             try {
-                ApiClient.postScore( game.getSnake().getScore(), 2);
+                String snake = switch (game.getSnake()) {
+                    case Anaconda anaconda -> "Anaconda";
+                    case Python python -> "Python";
+                    case BoaConstrictor boaconstrictor -> "Boa";
+                };
+                ApiClient.postScore( game.getSnake().getScore(), snake, 1);
 
-                int bestScore = ApiClient.getBestScore(2);
+                this.bestScore = ApiClient.getBestScore(1);
                 statsLoaded = true;
 
                 repaint();
-            } catch (Exception e) {
-                bestScore = null;
+            }
+            catch (Exception e) {
+                this.bestScore = null;
                 statsLoaded = true;
             }
         }).start();

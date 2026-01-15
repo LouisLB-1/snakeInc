@@ -10,7 +10,7 @@ public class ApiClient {
 
     private static final String BASE_URL = "http://localhost:8080/api/v1";
 
-    public static void postScore(int value, int playerId) {
+    public static void postScore(int value, String snake, int playerId) {
         HttpURLConnection connection = null;
 
         try {
@@ -24,10 +24,10 @@ public class ApiClient {
             String jsonBody = """
             {
               "value": %d,
-              "snake": "Anaconda",
+              "snake": "%s",
               "playerId": %d
             }
-            """.formatted(value, playerId);
+            """.formatted(value, snake, playerId);
 
             try (OutputStream os = connection.getOutputStream()) {
                 os.write(jsonBody.getBytes(StandardCharsets.UTF_8));

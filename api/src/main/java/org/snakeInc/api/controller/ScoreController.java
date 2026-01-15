@@ -30,7 +30,7 @@ public class ScoreController {
         Player player = playerService
                 .getPlayer(params.getPlayerId())
                 .orElseThrow(() -> new PlayerNotFoundException(params.getPlayerId()));
-        Score score = new Score(params.getValue(), params.getPlayerId());
+        Score score = new Score(params.getValue(), params.getSnake(), params.getPlayerId());
         scoreService.addScore(score);
         return score;
     }

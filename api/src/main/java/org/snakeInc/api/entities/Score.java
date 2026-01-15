@@ -19,9 +19,9 @@ public class Score {
     protected final LocalDateTime playedAt;
     protected final Integer playerId;
 
-    public Score(Integer value, Integer playerId){
+    public Score(Integer value, String snake, Integer playerId){
         this.value = value;
-        this.snake = "Anaconda";
+        this.snake = snake;
         this.playedAt = LocalDateTime.now();
         this.playerId = playerId;
     }
